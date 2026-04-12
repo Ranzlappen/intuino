@@ -7,11 +7,28 @@ importScripts('https://storage.googleapis.com/workbox-cdn/releases/latest/workbo
 if (workbox) {
   // ─── PRECACHE CRITICAL ASSETS ───
   workbox.precaching.precacheAndRoute([
-    { url: '/', revision: '1' },
-    { url: '/index.html', revision: '1' },
-    { url: '/styles.css', revision: '1' },
-    { url: '/app.js', revision: '1' },
+    { url: '/', revision: '2' },
+    { url: '/index.html', revision: '2' },
+    { url: '/styles.css', revision: '2' },
+    { url: '/js/core.js', revision: '1' },
     { url: '/manifest.json', revision: '1' },
+    { url: '/js/chaos-engine.js', revision: '1' },
+    { url: '/js/effects.js', revision: '1' },
+    { url: '/js/audio.js', revision: '1' },
+    { url: '/js/meta-chaos.js', revision: '1' },
+    { url: '/js/easter-eggs.js', revision: '1' },
+    { url: '/js/social.js', revision: '1' },
+    { url: '/js/onboarding.js', revision: '1' },
+    { url: '/js/levels/level1.js', revision: '1' },
+    { url: '/js/levels/level2.js', revision: '1' },
+    { url: '/js/levels/level3.js', revision: '1' },
+    { url: '/js/levels/level4.js', revision: '1' },
+    { url: '/js/levels/level5.js', revision: '1' },
+    { url: '/js/levels/level6.js', revision: '1' },
+    { url: '/js/levels/level7.js', revision: '1' },
+    { url: '/js/levels/level8.js', revision: '1' },
+    { url: '/js/levels/level9.js', revision: '1' },
+    { url: '/js/levels/boss.js', revision: '1' },
   ]);
 
   // ─── HTML: NETWORK-FIRST WITH CACHE FALLBACK ───
