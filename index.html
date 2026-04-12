@@ -33,11 +33,14 @@
 </head>
 <body class="bg-surface-dark text-white font-sans overflow-x-hidden">
 
+  <!-- ══════════════ CHAOS OVERLAY ══════════════ -->
+  <div id="chaos-overlay"></div>
+
   <!-- ══════════════ TOP BAR ══════════════ -->
   <nav id="topbar" class="fixed top-0 left-0 right-0 z-50 h-16 flex items-center justify-between px-4 md:px-8 backdrop-blur-xl bg-surface-dark/70 border-b border-white/5 translate-y-[-100%]">
     <div class="flex items-center gap-3">
       <div id="nav-avatar" class="w-9 h-9 rounded-full bg-gradient-to-br from-neon-cyan to-neon-magenta flex items-center justify-center text-sm font-bold cursor-pointer select-none">U</div>
-      <span class="text-sm font-semibold tracking-wide opacity-80">IntuiNO</span>
+      <span id="topbar-title" class="text-sm font-semibold tracking-wide opacity-80 cursor-pointer select-none">IntuiNO</span>
     </div>
     <div class="flex items-center gap-2">
       <div id="chaos-score-display" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/5 border border-neon-purple/30 text-xs font-medium">
@@ -45,6 +48,7 @@
         <span id="chaos-score-val">0</span>
         <span class="opacity-50">Chaos</span>
       </div>
+      <button id="sound-toggle" class="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-lg hover:bg-white/10 transition" title="Toggle sound">🔊</button>
       <button id="theme-toggle" class="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-lg hover:bg-white/10 transition" title="Toggle theme">🌙</button>
       <button id="menu-btn" class="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 transition">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
@@ -89,9 +93,7 @@
             <h4 class="text-sm font-semibold text-neon-cyan">We Value Your Privacy*</h4>
             <span class="text-[8px] text-white/15">*We don't</span>
           </div>
-          <p class="text-xs text-white/40 leading-relaxed mb-3">
-            This site uses cookies, trackers, dark patterns, and emotional manipulation to deliver the worst possible experience. By existing, you consent to everything.
-          </p>
+          <p class="text-xs text-white/40 leading-relaxed mb-3">This site uses cookies, trackers, dark patterns, and emotional manipulation to deliver the worst possible experience. By existing, you consent to everything.</p>
           <div class="flex flex-wrap gap-2">
             <button id="banner-accept" class="px-4 py-1.5 rounded-lg bg-neon-cyan/10 border border-neon-cyan/30 text-neon-cyan text-xs font-medium hover:bg-neon-cyan/20 transition">Accept All</button>
             <button id="banner-reject" class="px-4 py-1.5 rounded-lg bg-white/5 border border-white/10 text-white/40 text-xs hover:bg-white/10 transition">Reject All</button>
@@ -110,6 +112,49 @@
       <div>
         <p class="text-xs text-neon-purple font-semibold uppercase tracking-wider">Achievement Unlocked</p>
         <p class="text-sm font-medium" id="ach-text">—</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════ FAKE CRASH SCREEN ══════════════ -->
+  <div id="fake-crash"></div>
+
+  <!-- ══════════════ FAKE UPDATE DIALOG ══════════════ -->
+  <div id="fake-update"></div>
+
+  <!-- ══════════════ FAKE DEV TOOLS ══════════════ -->
+  <div id="fake-devtools">
+    <div class="dt-tabs">
+      <div class="dt-tab active" data-tab="elements">Elements</div>
+      <div class="dt-tab" data-tab="console">Console</div>
+      <div class="dt-tab" data-tab="network">Network</div>
+    </div>
+    <div class="dt-content" id="dt-content"></div>
+  </div>
+
+  <!-- ══════════════ ONBOARDING OVERLAY ══════════════ -->
+  <div id="onboarding-overlay">
+    <div class="glass-card p-8 max-w-md mx-4 text-center">
+      <div id="onboarding-step1" class="onboarding-step">
+        <h3 class="text-xl font-bold text-neon-cyan mb-4">Welcome to IntuiNO!</h3>
+        <p class="text-sm text-white/60 mb-6">Click the Next button to continue.</p>
+        <button id="onboarding-btn1" class="px-6 py-3 rounded-xl bg-neon-magenta/20 border border-neon-magenta/40 text-neon-magenta font-semibold">← Previous</button>
+      </div>
+      <div id="onboarding-step2" class="onboarding-step hidden">
+        <h3 class="text-xl font-bold text-neon-cyan mb-4">Step 2</h3>
+        <p class="text-sm text-white/60 mb-6" style="transform: rotate(180deg)">Read these instructions carefully. Everything here is exactly as it seems.</p>
+        <button id="onboarding-btn2" class="px-6 py-3 rounded-xl bg-neon-cyan/20 border border-neon-cyan/40 text-neon-cyan font-semibold">Next →</button>
+      </div>
+      <div id="onboarding-step3" class="onboarding-step hidden">
+        <h3 class="text-xl font-bold text-neon-cyan mb-4">Step 3</h3>
+        <p class="text-sm text-white/60 mb-4">This progress bar shows your tutorial progress.</p>
+        <div class="h-2 bg-white/10 rounded-full overflow-hidden mb-6"><div id="onboarding-bar" class="h-full bg-gradient-to-r from-neon-cyan to-neon-magenta rounded-full" style="width:75%;transition:width 3s linear"></div></div>
+        <button id="onboarding-btn3" class="px-6 py-3 rounded-xl bg-neon-purple/20 border border-neon-purple/40 text-neon-purple font-semibold">Next →</button>
+      </div>
+      <div id="onboarding-step4" class="onboarding-step hidden">
+        <h3 class="text-xl font-bold text-neon-cyan mb-4">Final Step</h3>
+        <p class="text-sm text-white/60 mb-6">Click "Skip Tutorial" to finish the tutorial.</p>
+        <button id="onboarding-skip" class="px-6 py-3 rounded-xl bg-gradient-to-r from-neon-cyan to-neon-blue text-white font-semibold">Skip Tutorial</button>
       </div>
     </div>
   </div>
@@ -133,7 +178,6 @@
       </button>
       <p class="mt-12 text-xs text-white/20">Scroll down to begin — or don't. We'll misinterpret either choice.</p>
     </div>
-    <!-- floating orbs -->
     <div class="orb orb-1"></div>
     <div class="orb orb-2"></div>
     <div class="orb orb-3"></div>
@@ -146,26 +190,30 @@
         <h2 class="text-3xl md:text-4xl font-bold mb-2">Choose Your <span class="text-neon-magenta">Misadventure</span></h2>
         <p class="text-white/40 text-sm">Each level teaches real UX principles — by doing the exact opposite.</p>
       </div>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="level-grid">
-        <!-- Level cards injected by JS -->
-      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="level-grid"></div>
       <div class="mt-12 p-6 rounded-2xl glass-card text-center">
         <h3 class="text-lg font-semibold mb-1">Your Chaos Profile</h3>
         <div class="flex flex-wrap items-center justify-center gap-6 mt-4">
-          <div>
-            <p class="text-3xl font-black text-neon-cyan" id="hub-chaos">0</p>
-            <p class="text-xs text-white/40">Chaos Score</p>
-          </div>
-          <div>
-            <p class="text-3xl font-black text-neon-magenta" id="hub-levels">0/5</p>
-            <p class="text-xs text-white/40">Levels Cleared</p>
-          </div>
-          <div>
-            <p class="text-3xl font-black text-neon-purple" id="hub-achievements">0</p>
-            <p class="text-xs text-white/40">Achievements</p>
-          </div>
+          <div><p class="text-3xl font-black text-neon-cyan" id="hub-chaos">0</p><p class="text-xs text-white/40">Chaos Score</p></div>
+          <div><p class="text-3xl font-black text-neon-magenta" id="hub-levels">0/10</p><p class="text-xs text-white/40">Levels Cleared</p></div>
+          <div><p class="text-3xl font-black text-neon-purple" id="hub-achievements">0</p><p class="text-xs text-white/40">Achievements</p></div>
+        </div>
+        <div class="flex justify-center gap-3 mt-6">
+          <button id="share-chaos-btn" class="px-4 py-2 rounded-lg bg-neon-cyan/10 border border-neon-cyan/30 text-neon-cyan text-xs font-medium hover:bg-neon-cyan/20 transition">📤 Share Chaos</button>
+          <button id="stats-link" class="px-4 py-2 rounded-lg bg-neon-purple/10 border border-neon-purple/30 text-neon-purple text-xs font-medium hover:bg-neon-purple/20 transition" data-nav="stats">📊 Stats</button>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- ═══ STATS SCREEN ═══ -->
+  <section id="screen-stats" class="screen min-h-screen px-4 md:px-8 pt-24 pb-16 hidden">
+    <div class="max-w-lg mx-auto">
+      <div class="flex items-center gap-3 mb-8">
+        <button class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 transition" data-nav="hub">←</button>
+        <h2 class="text-2xl font-bold">Chaos Statistics</h2>
+      </div>
+      <div id="stats-content" class="space-y-4"></div>
     </div>
   </section>
 
@@ -173,386 +221,263 @@
   <section id="screen-level1" class="screen min-h-screen px-4 md:px-8 pt-24 pb-16 hidden">
     <div class="max-w-2xl mx-auto">
       <div class="flex items-center gap-3 mb-8">
-        <button class="back-btn w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 transition" data-nav="hub">←</button>
-        <div>
-          <h2 class="text-2xl font-bold">Navigation Hell</h2>
-          <p class="text-xs text-white/40">Level 1 · Links lie. Menus mislead.</p>
-        </div>
+        <button class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 transition" data-nav="hub">←</button>
+        <div><h2 class="text-2xl font-bold">Navigation Hell</h2><p class="text-xs text-white/40">Level 1 · Links lie. Menus mislead.</p></div>
       </div>
-      <!-- Search bar -->
-      <div class="mb-8">
-        <div class="relative">
-          <input id="l1-search" type="text" placeholder="Search for something useful..." class="w-full px-5 py-3 rounded-2xl bg-white/5 border border-white/10 text-white placeholder-white/30 focus:outline-none focus:border-neon-cyan/50 transition">
-          <span class="absolute right-4 top-1/2 -translate-y-1/2 text-white/30">🔍</span>
-        </div>
-        <div id="l1-search-results" class="mt-3 hidden"></div>
-      </div>
-      <!-- Nav links that go wrong -->
+      <div class="mb-8"><div class="relative"><input id="l1-search" type="text" placeholder="Search for something useful..." class="w-full px-5 py-3 rounded-2xl bg-white/5 border border-white/10 text-white placeholder-white/30 focus:outline-none focus:border-neon-cyan/50 transition"><span class="absolute right-4 top-1/2 -translate-y-1/2 text-white/30">🔍</span></div><div id="l1-search-results" class="mt-3 hidden"></div></div>
       <div class="grid grid-cols-2 gap-4 mb-8">
-        <button class="nav-hell-btn glass-card p-5 text-left hover:border-neon-cyan/30 transition group" data-target="profile">
-          <span class="text-2xl mb-2 block">👤</span>
-          <p class="font-semibold">My Profile</p>
-          <p class="text-xs text-white/30 mt-1">View your personal page</p>
-        </button>
-        <button class="nav-hell-btn glass-card p-5 text-left hover:border-neon-magenta/30 transition group" data-target="messages">
-          <span class="text-2xl mb-2 block">💬</span>
-          <p class="font-semibold">Messages</p>
-          <p class="text-xs text-white/30 mt-1">Check your inbox</p>
-        </button>
-        <button class="nav-hell-btn glass-card p-5 text-left hover:border-neon-purple/30 transition group" data-target="settings">
-          <span class="text-2xl mb-2 block">⚙️</span>
-          <p class="font-semibold">Settings</p>
-          <p class="text-xs text-white/30 mt-1">Customize your experience</p>
-        </button>
-        <button class="nav-hell-btn glass-card p-5 text-left hover:border-neon-blue/30 transition group" data-target="discover">
-          <span class="text-2xl mb-2 block">🌐</span>
-          <p class="font-semibold">Discover</p>
-          <p class="text-xs text-white/30 mt-1">Explore new content</p>
-        </button>
+        <button class="nav-hell-btn glass-card p-5 text-left hover:border-neon-cyan/30 transition" data-target="profile"><span class="text-2xl mb-2 block">👤</span><p class="font-semibold">My Profile</p><p class="text-xs text-white/30 mt-1">View your personal page</p></button>
+        <button class="nav-hell-btn glass-card p-5 text-left hover:border-neon-magenta/30 transition" data-target="messages"><span class="text-2xl mb-2 block">💬</span><p class="font-semibold">Messages</p><p class="text-xs text-white/30 mt-1">Check your inbox</p></button>
+        <button class="nav-hell-btn glass-card p-5 text-left hover:border-neon-purple/30 transition" data-target="settings"><span class="text-2xl mb-2 block">⚙️</span><p class="font-semibold">Settings</p><p class="text-xs text-white/30 mt-1">Customize your experience</p></button>
+        <button class="nav-hell-btn glass-card p-5 text-left hover:border-neon-blue/30 transition" data-target="discover"><span class="text-2xl mb-2 block">🌐</span><p class="font-semibold">Discover</p><p class="text-xs text-white/30 mt-1">Explore new content</p></button>
       </div>
-      <!-- Breadcrumbs that lie -->
-      <div class="glass-card p-5 mb-6">
-        <p class="text-xs text-white/40 mb-2">Breadcrumbs (unreliable)</p>
-        <div id="l1-breadcrumbs" class="flex items-center gap-2 text-sm flex-wrap">
-          <span class="text-neon-cyan cursor-pointer hover:underline" onclick="IntuiNO.addChaos(2);IntuiNO.toast('Breadcrumb led to a dead end.','warn')">Home</span>
-          <span class="text-white/20">›</span>
-          <span class="text-neon-magenta cursor-pointer hover:underline" onclick="IntuiNO.addChaos(2);IntuiNO.toast('This crumb was stale.','warn')">Somewhere</span>
-          <span class="text-white/20">›</span>
-          <span class="text-white/50">???</span>
-        </div>
-      </div>
-      <!-- Progress -->
-      <div class="glass-card p-5">
-        <div class="flex justify-between items-center mb-3">
-          <p class="text-sm font-medium">Level Progress</p>
-          <span class="text-xs text-white/40" id="l1-progress-text">0 / 6 chaos events</span>
-        </div>
-        <div class="h-2 bg-white/10 rounded-full overflow-hidden">
-          <div id="l1-progress-bar" class="h-full bg-gradient-to-r from-neon-cyan to-neon-magenta rounded-full transition-all duration-500" style="width:0%"></div>
-        </div>
-        <button id="l1-complete" class="mt-4 w-full py-3 rounded-xl bg-neon-cyan/10 border border-neon-cyan/30 text-neon-cyan font-semibold hover:bg-neon-cyan/20 transition hidden">Complete Level →</button>
-      </div>
+      <div class="glass-card p-5 mb-6"><p class="text-xs text-white/40 mb-2">Breadcrumbs (unreliable)</p><div class="flex items-center gap-2 text-sm flex-wrap"><span class="text-neon-cyan cursor-pointer hover:underline" onclick="IntuiNO.addChaos(2);IntuiNO.levelProg(1);IntuiNO.toast('Breadcrumb led to a dead end.','warn')">Home</span><span class="text-white/20">›</span><span class="text-neon-magenta cursor-pointer hover:underline" onclick="IntuiNO.addChaos(2);IntuiNO.levelProg(1);IntuiNO.toast('This crumb was stale.','warn')">Somewhere</span><span class="text-white/20">›</span><span class="text-white/50">???</span></div></div>
+      <div class="glass-card p-5"><div class="flex justify-between items-center mb-3"><p class="text-sm font-medium">Level Progress</p><span class="text-xs text-white/40" id="l1-progress-text">0 / 6 chaos events</span></div><div class="h-2 bg-white/10 rounded-full overflow-hidden"><div id="l1-progress-bar" class="h-full bg-gradient-to-r from-neon-cyan to-neon-magenta rounded-full transition-all duration-500" style="width:0%"></div></div><button id="l1-complete" class="mt-4 w-full py-3 rounded-xl bg-neon-cyan/10 border border-neon-cyan/30 text-neon-cyan font-semibold hover:bg-neon-cyan/20 transition hidden">Complete Level →</button></div>
     </div>
   </section>
 
   <!-- ═══ LEVEL 2: FORM FIASCO ═══ -->
   <section id="screen-level2" class="screen min-h-screen px-4 md:px-8 pt-24 pb-16 hidden">
     <div class="max-w-lg mx-auto">
-      <div class="flex items-center gap-3 mb-8">
-        <button class="back-btn w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 transition" data-nav="hub">←</button>
-        <div>
-          <h2 class="text-2xl font-bold">Form Fiasco</h2>
-          <p class="text-xs text-white/40">Level 2 · Forms that fight back.</p>
-        </div>
-      </div>
+      <div class="flex items-center gap-3 mb-8"><button class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 transition" data-nav="hub">←</button><div><h2 class="text-2xl font-bold">Form Fiasco</h2><p class="text-xs text-white/40">Level 2 · Forms that fight back.</p></div></div>
       <form id="l2-form" class="space-y-6" onsubmit="return false">
-        <!-- Username -->
-        <div>
-          <label class="block text-sm font-medium mb-1.5">Username</label>
-          <input id="l2-username" type="text" placeholder="Enter your name" class="input-field w-full" autocomplete="off">
-          <p id="l2-username-hint" class="text-xs mt-1 text-white/30">Choose something memorable.</p>
-        </div>
-        <!-- Email with wrong validation colors -->
-        <div>
-          <label class="block text-sm font-medium mb-1.5">Email Address</label>
-          <input id="l2-email" type="text" placeholder="you@example.com" class="input-field w-full" autocomplete="off">
-          <p id="l2-email-hint" class="text-xs mt-1 text-white/30">We'll never share your email. Promise.</p>
-        </div>
-        <!-- Password with backwards eye -->
-        <div>
-          <label class="block text-sm font-medium mb-1.5">Password</label>
-          <div class="relative">
-            <input id="l2-password" type="text" placeholder="Create a strong password" class="input-field w-full pr-12" autocomplete="off">
-            <button type="button" id="l2-eye" class="absolute right-3 top-1/2 -translate-y-1/2 text-white/40 hover:text-white/60 text-lg transition" title="Toggle visibility">👁️</button>
-          </div>
-          <p id="l2-pw-hint" class="text-xs mt-1 text-green-400">Password is visible — click the eye to hide it. (The eye does the opposite.)</p>
-        </div>
-        <!-- Age slider that lies -->
-        <div>
-          <label class="block text-sm font-medium mb-1.5">Age: <span id="l2-age-val" class="text-neon-cyan">76</span></label>
-          <input id="l2-age" type="range" min="1" max="100" value="25" class="w-full accent-neon-magenta">
-        </div>
-        <!-- Terms with swapped buttons -->
-        <div class="glass-card p-4">
-          <p class="text-sm mb-3">Do you agree to our <span class="text-neon-cyan underline cursor-pointer" onclick="IntuiNO.addChaos(3);IntuiNO.toast('The terms changed while you were reading them.','warn')">Terms of Chaos</span>?</p>
-          <div class="flex gap-3">
-            <button type="button" id="l2-agree-no" class="flex-1 py-2 rounded-xl bg-green-500/20 border border-green-500/40 text-green-400 font-semibold hover:bg-green-500/30 transition">No, I Decline</button>
-            <button type="button" id="l2-agree-yes" class="flex-1 py-2 rounded-xl bg-red-500/20 border border-red-500/40 text-red-400 font-semibold hover:bg-red-500/30 transition">Yes, I Agree</button>
-          </div>
-        </div>
-        <!-- Submit -->
-        <button type="submit" id="l2-submit" class="w-full py-3 rounded-2xl bg-gradient-to-r from-neon-magenta to-neon-purple text-white font-semibold shadow-lg shadow-neon-magenta/20 hover:shadow-neon-magenta/40 transition-all active:scale-95">
-          Submit Application
-        </button>
+        <div><label class="block text-sm font-medium mb-1.5">Username</label><input id="l2-username" type="text" placeholder="Enter your name" class="input-field w-full" autocomplete="off"><p id="l2-username-hint" class="text-xs mt-1 text-white/30">Choose something memorable.</p></div>
+        <div><label class="block text-sm font-medium mb-1.5">Email Address</label><input id="l2-email" type="text" placeholder="you@example.com" class="input-field w-full" autocomplete="off"><p id="l2-email-hint" class="text-xs mt-1 text-white/30">We'll never share your email. Promise.</p></div>
+        <div><label class="block text-sm font-medium mb-1.5">Password</label><div class="relative"><input id="l2-password" type="text" placeholder="Create a strong password" class="input-field w-full pr-12" autocomplete="off"><button type="button" id="l2-eye" class="absolute right-3 top-1/2 -translate-y-1/2 text-white/40 hover:text-white/60 text-lg transition">👁️</button></div><p id="l2-pw-hint" class="text-xs mt-1 text-green-400">Password is visible — click the eye to hide it. (The eye does the opposite.)</p></div>
+        <div><label class="block text-sm font-medium mb-1.5">Age: <span id="l2-age-val" class="text-neon-cyan">76</span></label><input id="l2-age" type="range" min="1" max="100" value="25" class="w-full accent-neon-magenta"></div>
+        <div class="glass-card p-4"><p class="text-sm mb-3">Do you agree to our <span class="text-neon-cyan underline cursor-pointer" onclick="IntuiNO.addChaos(3);IntuiNO.toast('The terms changed while you were reading them.','warn')">Terms of Chaos</span>?</p><div class="flex gap-3"><button type="button" id="l2-agree-no" class="flex-1 py-2 rounded-xl bg-green-500/20 border border-green-500/40 text-green-400 font-semibold hover:bg-green-500/30 transition">No, I Decline</button><button type="button" id="l2-agree-yes" class="flex-1 py-2 rounded-xl bg-red-500/20 border border-red-500/40 text-red-400 font-semibold hover:bg-red-500/30 transition">Yes, I Agree</button></div></div>
+        <button type="submit" class="w-full py-3 rounded-2xl bg-gradient-to-r from-neon-magenta to-neon-purple text-white font-semibold shadow-lg shadow-neon-magenta/20 hover:shadow-neon-magenta/40 transition-all active:scale-95">Submit Application</button>
       </form>
-      <!-- Progress -->
-      <div class="glass-card p-5 mt-8">
-        <div class="flex justify-between items-center mb-3">
-          <p class="text-sm font-medium">Level Progress</p>
-          <span class="text-xs text-white/40" id="l2-progress-text">0 / 7 chaos events</span>
-        </div>
-        <div class="h-2 bg-white/10 rounded-full overflow-hidden">
-          <div id="l2-progress-bar" class="h-full bg-gradient-to-r from-neon-magenta to-neon-purple rounded-full transition-all duration-500" style="width:0%"></div>
-        </div>
-        <button id="l2-complete" class="mt-4 w-full py-3 rounded-xl bg-neon-magenta/10 border border-neon-magenta/30 text-neon-magenta font-semibold hover:bg-neon-magenta/20 transition hidden">Complete Level →</button>
-      </div>
+      <div class="glass-card p-5 mt-8"><div class="flex justify-between items-center mb-3"><p class="text-sm font-medium">Level Progress</p><span class="text-xs text-white/40" id="l2-progress-text">0 / 7 chaos events</span></div><div class="h-2 bg-white/10 rounded-full overflow-hidden"><div id="l2-progress-bar" class="h-full bg-gradient-to-r from-neon-magenta to-neon-purple rounded-full transition-all duration-500" style="width:0%"></div></div><button id="l2-complete" class="mt-4 w-full py-3 rounded-xl bg-neon-magenta/10 border border-neon-magenta/30 text-neon-magenta font-semibold hover:bg-neon-magenta/20 transition hidden">Complete Level →</button></div>
     </div>
   </section>
 
   <!-- ═══ LEVEL 3: GESTURE GAUNTLET ═══ -->
   <section id="screen-level3" class="screen min-h-screen px-4 md:px-8 pt-24 pb-16 hidden">
     <div class="max-w-lg mx-auto">
-      <div class="flex items-center gap-3 mb-8">
-        <button class="back-btn w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 transition" data-nav="hub">←</button>
-        <div>
-          <h2 class="text-2xl font-bold">Gesture Gauntlet</h2>
-          <p class="text-xs text-white/40">Level 3 · Swipes, pinches & long-press — all wrong.</p>
-        </div>
-      </div>
-      <!-- Swipe cards -->
-      <div class="mb-8">
-        <p class="text-sm text-white/50 mb-3">Swipe right to like, left to skip. <span class="text-neon-magenta">(Or so you think.)</span></p>
-        <div id="l3-swipe-area" class="relative h-72 rounded-2xl glass-card overflow-hidden flex items-center justify-center select-none touch-none">
-          <div id="l3-swipe-card" class="absolute inset-4 rounded-xl bg-gradient-to-br from-neon-purple/20 to-neon-cyan/20 border border-white/10 flex flex-col items-center justify-center p-6 cursor-grab active:cursor-grabbing">
-            <span class="text-5xl mb-3" id="l3-card-emoji">🎨</span>
-            <p class="font-semibold text-lg" id="l3-card-title">Creative Post #1</p>
-            <p class="text-xs text-white/40 mt-1" id="l3-card-sub">Swipe to interact</p>
-          </div>
-          <div class="absolute top-4 left-4 text-green-400 text-sm font-bold opacity-0" id="l3-label-like">LIKED</div>
-          <div class="absolute top-4 right-4 text-red-400 text-sm font-bold opacity-0" id="l3-label-skip">SKIPPED</div>
-        </div>
-        <p class="text-xs text-white/20 mt-2 text-center">Directions are inverted. Surprise!</p>
-      </div>
-      <!-- Pinch zone -->
-      <div class="mb-8">
-        <p class="text-sm text-white/50 mb-3">Pinch to zoom the image below.</p>
-        <div id="l3-pinch-area" class="h-48 rounded-2xl glass-card overflow-hidden flex items-center justify-center touch-none select-none">
-          <div id="l3-pinch-content" class="text-6xl transition-transform duration-200">🌆</div>
-        </div>
-        <p class="text-xs text-white/20 mt-2 text-center">Pinch-in zooms out. Pinch-out zooms in. Naturally.</p>
-      </div>
-      <!-- Long press zone -->
-      <div class="mb-8">
-        <p class="text-sm text-white/50 mb-3">Long-press the button below for a surprise.</p>
-        <button id="l3-longpress" class="w-full py-4 rounded-2xl glass-card border-2 border-white/10 font-semibold text-lg hover:border-neon-purple/40 transition select-none active:scale-95">
-          Hold Me 🫳
-        </button>
-      </div>
-      <!-- Progress -->
-      <div class="glass-card p-5">
-        <div class="flex justify-between items-center mb-3">
-          <p class="text-sm font-medium">Level Progress</p>
-          <span class="text-xs text-white/40" id="l3-progress-text">0 / 6 chaos events</span>
-        </div>
-        <div class="h-2 bg-white/10 rounded-full overflow-hidden">
-          <div id="l3-progress-bar" class="h-full bg-gradient-to-r from-neon-purple to-neon-blue rounded-full transition-all duration-500" style="width:0%"></div>
-        </div>
-        <button id="l3-complete" class="mt-4 w-full py-3 rounded-xl bg-neon-purple/10 border border-neon-purple/30 text-neon-purple font-semibold hover:bg-neon-purple/20 transition hidden">Complete Level →</button>
-      </div>
+      <div class="flex items-center gap-3 mb-8"><button class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 transition" data-nav="hub">←</button><div><h2 class="text-2xl font-bold">Gesture Gauntlet</h2><p class="text-xs text-white/40">Level 3 · Swipes, pinches & long-press — all wrong.</p></div></div>
+      <div class="mb-8"><p class="text-sm text-white/50 mb-3">Swipe right to like, left to skip. <span class="text-neon-magenta">(Or so you think.)</span></p><div id="l3-swipe-area" class="relative h-72 rounded-2xl glass-card overflow-hidden flex items-center justify-center select-none touch-none"><div id="l3-swipe-card" class="absolute inset-4 rounded-xl bg-gradient-to-br from-neon-purple/20 to-neon-cyan/20 border border-white/10 flex flex-col items-center justify-center p-6 cursor-grab active:cursor-grabbing"><span class="text-5xl mb-3" id="l3-card-emoji">🎨</span><p class="font-semibold text-lg" id="l3-card-title">Creative Post #1</p><p class="text-xs text-white/40 mt-1" id="l3-card-sub">Swipe to interact</p></div><div class="absolute top-4 left-4 text-green-400 text-sm font-bold opacity-0" id="l3-label-like">LIKED</div><div class="absolute top-4 right-4 text-red-400 text-sm font-bold opacity-0" id="l3-label-skip">SKIPPED</div></div></div>
+      <div class="mb-8"><p class="text-sm text-white/50 mb-3">Pinch to zoom the image below.</p><div id="l3-pinch-area" class="h-48 rounded-2xl glass-card overflow-hidden flex items-center justify-center touch-none select-none"><div id="l3-pinch-content" class="text-6xl transition-transform duration-200">🌆</div></div></div>
+      <div class="mb-8"><p class="text-sm text-white/50 mb-3">Long-press the button below for a surprise.</p><button id="l3-longpress" class="w-full py-4 rounded-2xl glass-card border-2 border-white/10 font-semibold text-lg hover:border-neon-purple/40 transition select-none active:scale-95">Hold Me 🫳</button></div>
+      <div class="glass-card p-5"><div class="flex justify-between items-center mb-3"><p class="text-sm font-medium">Level Progress</p><span class="text-xs text-white/40" id="l3-progress-text">0 / 6 chaos events</span></div><div class="h-2 bg-white/10 rounded-full overflow-hidden"><div id="l3-progress-bar" class="h-full bg-gradient-to-r from-neon-purple to-neon-blue rounded-full transition-all duration-500" style="width:0%"></div></div><button id="l3-complete" class="mt-4 w-full py-3 rounded-xl bg-neon-purple/10 border border-neon-purple/30 text-neon-purple font-semibold hover:bg-neon-purple/20 transition hidden">Complete Level →</button></div>
     </div>
   </section>
 
   <!-- ═══ LEVEL 4: BUTTON & CTA CHAOS ═══ -->
   <section id="screen-level4" class="screen min-h-screen px-4 md:px-8 pt-24 pb-16 hidden">
     <div class="max-w-lg mx-auto">
-      <div class="flex items-center gap-3 mb-8">
-        <button class="back-btn w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 transition" data-nav="hub">←</button>
-        <div>
-          <h2 class="text-2xl font-bold">Button & CTA Chaos</h2>
-          <p class="text-xs text-white/40">Level 4 · Buttons that flee from your cursor.</p>
-        </div>
-      </div>
-      <!-- Moving CTA -->
-      <div class="mb-8">
-        <p class="text-sm text-white/50 mb-3">Try to click "Subscribe" — if you can catch it.</p>
-        <div id="l4-chase-area" class="relative h-48 rounded-2xl glass-card overflow-hidden">
-          <button id="l4-runaway-btn" class="absolute px-6 py-3 rounded-xl bg-gradient-to-r from-neon-cyan to-neon-blue text-white font-semibold shadow-lg transition-none" style="top:50%;left:50%;transform:translate(-50%,-50%)">
-            Subscribe ✨
-          </button>
-        </div>
-        <p class="text-xs text-white/20 mt-2 text-center">Buttons with commitment issues.</p>
-      </div>
-      <!-- Backwards progress -->
-      <div class="mb-8">
-        <p class="text-sm text-white/50 mb-3">Loading your content...</p>
-        <div class="glass-card p-5">
-          <div class="h-3 bg-white/10 rounded-full overflow-hidden mb-2">
-            <div id="l4-fake-progress" class="h-full bg-gradient-to-r from-green-400 to-neon-cyan rounded-full" style="width:100%"></div>
-          </div>
-          <p class="text-xs text-white/40" id="l4-loading-text">100% — Going backwards...</p>
-          <button id="l4-wrong-action" class="mt-3 px-4 py-2 rounded-lg bg-red-500/20 border border-red-500/30 text-red-400 text-sm hover:bg-red-500/30 transition">Cancel Download</button>
-        </div>
-      </div>
-      <!-- Opposite labels -->
-      <div class="mb-8">
-        <p class="text-sm text-white/50 mb-3">Quick actions — labels may be misleading.</p>
-        <div class="grid grid-cols-2 gap-3">
-          <button class="opposite-btn glass-card p-4 text-center hover:border-neon-cyan/30 transition" data-real="delete" data-label="Save">
-            <span class="text-2xl block mb-1">💾</span>
-            <p class="text-sm font-medium">Save</p>
-          </button>
-          <button class="opposite-btn glass-card p-4 text-center hover:border-neon-magenta/30 transition" data-real="save" data-label="Delete">
-            <span class="text-2xl block mb-1">🗑️</span>
-            <p class="text-sm font-medium">Delete</p>
-          </button>
-          <button class="opposite-btn glass-card p-4 text-center hover:border-neon-purple/30 transition" data-real="unmute" data-label="Mute">
-            <span class="text-2xl block mb-1">🔇</span>
-            <p class="text-sm font-medium">Mute</p>
-          </button>
-          <button class="opposite-btn glass-card p-4 text-center hover:border-green-400/30 transition" data-real="mute" data-label="Unmute">
-            <span class="text-2xl block mb-1">🔊</span>
-            <p class="text-sm font-medium">Unmute</p>
-          </button>
-        </div>
-      </div>
-      <!-- Progress -->
-      <div class="glass-card p-5">
-        <div class="flex justify-between items-center mb-3">
-          <p class="text-sm font-medium">Level Progress</p>
-          <span class="text-xs text-white/40" id="l4-progress-text">0 / 7 chaos events</span>
-        </div>
-        <div class="h-2 bg-white/10 rounded-full overflow-hidden">
-          <div id="l4-progress-bar" class="h-full bg-gradient-to-r from-neon-blue to-neon-cyan rounded-full transition-all duration-500" style="width:0%"></div>
-        </div>
-        <button id="l4-complete" class="mt-4 w-full py-3 rounded-xl bg-neon-blue/10 border border-neon-blue/30 text-neon-blue font-semibold hover:bg-neon-blue/20 transition hidden">Complete Level →</button>
-      </div>
+      <div class="flex items-center gap-3 mb-8"><button class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 transition" data-nav="hub">←</button><div><h2 class="text-2xl font-bold">Button & CTA Chaos</h2><p class="text-xs text-white/40">Level 4 · Buttons that flee from your cursor.</p></div></div>
+      <div class="mb-8"><p class="text-sm text-white/50 mb-3">Try to click "Subscribe" — if you can catch it.</p><div id="l4-chase-area" class="relative h-48 rounded-2xl glass-card overflow-hidden"><button id="l4-runaway-btn" class="absolute px-6 py-3 rounded-xl bg-gradient-to-r from-neon-cyan to-neon-blue text-white font-semibold shadow-lg transition-none" style="top:50%;left:50%;transform:translate(-50%,-50%)">Subscribe ✨</button></div></div>
+      <div class="mb-8"><p class="text-sm text-white/50 mb-3">Loading your content...</p><div class="glass-card p-5"><div class="h-3 bg-white/10 rounded-full overflow-hidden mb-2"><div id="l4-fake-progress" class="h-full bg-gradient-to-r from-green-400 to-neon-cyan rounded-full" style="width:100%"></div></div><p class="text-xs text-white/40" id="l4-loading-text">100% — Going backwards...</p><button id="l4-wrong-action" class="mt-3 px-4 py-2 rounded-lg bg-red-500/20 border border-red-500/30 text-red-400 text-sm hover:bg-red-500/30 transition">Cancel Download</button></div></div>
+      <div class="mb-8"><p class="text-sm text-white/50 mb-3">Quick actions — labels may be misleading.</p><div class="grid grid-cols-2 gap-3"><button class="opposite-btn glass-card p-4 text-center hover:border-neon-cyan/30 transition" data-real="delete"><span class="text-2xl block mb-1">💾</span><p class="text-sm font-medium">Save</p></button><button class="opposite-btn glass-card p-4 text-center hover:border-neon-magenta/30 transition" data-real="save"><span class="text-2xl block mb-1">🗑️</span><p class="text-sm font-medium">Delete</p></button><button class="opposite-btn glass-card p-4 text-center hover:border-neon-purple/30 transition" data-real="unmute"><span class="text-2xl block mb-1">🔇</span><p class="text-sm font-medium">Mute</p></button><button class="opposite-btn glass-card p-4 text-center hover:border-green-400/30 transition" data-real="mute"><span class="text-2xl block mb-1">🔊</span><p class="text-sm font-medium">Unmute</p></button></div></div>
+      <div class="glass-card p-5"><div class="flex justify-between items-center mb-3"><p class="text-sm font-medium">Level Progress</p><span class="text-xs text-white/40" id="l4-progress-text">0 / 7 chaos events</span></div><div class="h-2 bg-white/10 rounded-full overflow-hidden"><div id="l4-progress-bar" class="h-full bg-gradient-to-r from-neon-blue to-neon-cyan rounded-full transition-all duration-500" style="width:0%"></div></div><button id="l4-complete" class="mt-4 w-full py-3 rounded-xl bg-neon-blue/10 border border-neon-blue/30 text-neon-blue font-semibold hover:bg-neon-blue/20 transition hidden">Complete Level →</button></div>
     </div>
   </section>
 
   <!-- ═══ LEVEL 5: SETTINGS SABOTAGE ═══ -->
   <section id="screen-level5" class="screen min-h-screen px-4 md:px-8 pt-24 pb-16 hidden">
     <div class="max-w-lg mx-auto">
-      <div class="flex items-center gap-3 mb-8">
-        <button class="back-btn w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 transition" data-nav="hub">←</button>
-        <div>
-          <h2 class="text-2xl font-bold">Settings Sabotage</h2>
-          <p class="text-xs text-white/40">Level 5 · Every toggle does the opposite.</p>
-        </div>
-      </div>
-      <!-- Settings toggles -->
+      <div class="flex items-center gap-3 mb-8"><button class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 transition" data-nav="hub">←</button><div><h2 class="text-2xl font-bold">Settings Sabotage</h2><p class="text-xs text-white/40">Level 5 · Every toggle does the opposite.</p></div></div>
       <div class="space-y-4 mb-8">
-        <div class="glass-card p-4 flex items-center justify-between">
-          <div>
-            <p class="font-medium">Dark Mode</p>
-            <p class="text-xs text-white/30">Enable dark theme</p>
+        <div class="glass-card p-4 flex items-center justify-between"><div><p class="font-medium">Dark Mode</p><p class="text-xs text-white/30">Enable dark theme</p></div><label class="relative inline-block w-12 h-7 cursor-pointer"><input type="checkbox" class="sr-only sab-check" data-setting="dark" checked><span class="toggle-slider"></span></label></div>
+        <div class="glass-card p-4 flex items-center justify-between"><div><p class="font-medium">Notifications</p><p class="text-xs text-white/30">Receive push alerts</p></div><label class="relative inline-block w-12 h-7 cursor-pointer"><input type="checkbox" class="sr-only sab-check" data-setting="notif"><span class="toggle-slider"></span></label></div>
+        <div class="glass-card p-4 flex items-center justify-between"><div><p class="font-medium">Sound Effects</p><p class="text-xs text-white/30">Play UI sounds</p></div><label class="relative inline-block w-12 h-7 cursor-pointer"><input type="checkbox" class="sr-only sab-check" data-setting="sound"><span class="toggle-slider"></span></label></div>
+        <div class="glass-card p-4 flex items-center justify-between"><div><p class="font-medium">Auto-Save</p><p class="text-xs text-white/30">Save changes automatically</p></div><label class="relative inline-block w-12 h-7 cursor-pointer"><input type="checkbox" class="sr-only sab-check" data-setting="autosave" checked><span class="toggle-slider"></span></label></div>
+        <div class="glass-card p-4 flex items-center justify-between"><div><p class="font-medium">Privacy Mode</p><p class="text-xs text-white/30">Hide your activity</p></div><label class="relative inline-block w-12 h-7 cursor-pointer"><input type="checkbox" class="sr-only sab-check" data-setting="privacy"><span class="toggle-slider"></span></label></div>
+      </div>
+      <div class="glass-card p-5 mb-8"><p class="text-sm font-medium mb-3">Save your settings?</p><div class="flex gap-3"><button id="l5-save-cancel" class="flex-1 py-2.5 rounded-xl bg-neon-cyan/20 border border-neon-cyan/40 text-neon-cyan font-semibold hover:bg-neon-cyan/30 transition">Cancel</button><button id="l5-save-confirm" class="flex-1 py-2.5 rounded-xl bg-red-500/20 border border-red-500/40 text-red-400 font-semibold hover:bg-red-500/30 transition">Delete Account</button></div></div>
+      <div class="glass-card p-5 mb-8"><p class="text-sm font-medium mb-3">Applying your settings...</p><div class="h-3 bg-white/10 rounded-full overflow-hidden mb-3"><div id="l5-apply-bar" class="h-full bg-gradient-to-r from-neon-magenta to-neon-purple rounded-full" style="width:0%"></div></div><p class="text-xs text-white/40 mb-3" id="l5-apply-text">Waiting...</p><div class="flex gap-3"><button id="l5-apply-wait" class="flex-1 py-2 rounded-lg bg-white/5 border border-white/10 text-sm hover:bg-white/10 transition">Wait Patiently</button><button id="l5-apply-abort" class="flex-1 py-2 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-sm hover:bg-red-500/20 transition">Abort</button></div></div>
+      <div class="glass-card p-5"><div class="flex justify-between items-center mb-3"><p class="text-sm font-medium">Level Progress</p><span class="text-xs text-white/40" id="l5-progress-text">0 / 8 chaos events</span></div><div class="h-2 bg-white/10 rounded-full overflow-hidden"><div id="l5-progress-bar" class="h-full bg-gradient-to-r from-neon-magenta to-neon-purple rounded-full transition-all duration-500" style="width:0%"></div></div><button id="l5-complete" class="mt-4 w-full py-3 rounded-xl bg-neon-magenta/10 border border-neon-magenta/30 text-neon-magenta font-semibold hover:bg-neon-magenta/20 transition hidden">Complete Level →</button></div>
+    </div>
+  </section>
+
+  <!-- ═══ LEVEL 6: MODAL MADNESS ═══ -->
+  <section id="screen-level6" class="screen min-h-screen px-4 md:px-8 pt-24 pb-16 hidden">
+    <div class="max-w-lg mx-auto">
+      <div class="flex items-center gap-3 mb-8"><button class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 transition" data-nav="hub">←</button><div><h2 class="text-2xl font-bold">Modal Madness</h2><p class="text-xs text-white/40">Level 6 · Modals within modals within modals.</p></div></div>
+      <div class="space-y-6">
+        <div class="glass-card p-6 text-center"><p class="text-sm text-white/50 mb-4">Click below to see an important message.</p><button id="l6-trigger-btn" class="px-6 py-3 rounded-xl bg-neon-cyan/20 border border-neon-cyan/40 text-neon-cyan font-semibold">Open Message</button></div>
+        <div class="glass-card p-6 text-center"><p class="text-sm text-white/50 mb-4">Do you want to confirm your preferences?</p><button id="l6-confirm-btn" class="px-6 py-3 rounded-xl bg-neon-purple/20 border border-neon-purple/40 text-neon-purple font-semibold">Confirm Settings</button></div>
+        <div class="glass-card p-6 text-center"><p class="text-sm text-white/50 mb-4">Click to see an expanding notification.</p><button id="l6-expand-trigger" class="px-6 py-3 rounded-xl bg-neon-magenta/20 border border-neon-magenta/40 text-neon-magenta font-semibold">Show Notification</button></div>
+      </div>
+      <div class="glass-card p-5 mt-8"><div class="flex justify-between items-center mb-3"><p class="text-sm font-medium">Level Progress</p><span class="text-xs text-white/40" id="l6-progress-text">0 / 7 chaos events</span></div><div class="h-2 bg-white/10 rounded-full overflow-hidden"><div id="l6-progress-bar" class="h-full bg-gradient-to-r from-neon-cyan to-neon-magenta rounded-full transition-all duration-500" style="width:0%"></div></div><button id="l6-complete" class="mt-4 w-full py-3 rounded-xl bg-neon-cyan/10 border border-neon-cyan/30 text-neon-cyan font-semibold hover:bg-neon-cyan/20 transition hidden">Complete Level →</button></div>
+    </div>
+  </section>
+  <!-- Level 6 modals -->
+  <div id="l6-modal-1" class="chaos-modal"><div class="modal-box"><span id="l6-modal1-close" class="modal-close">✕</span><h3 class="text-lg font-bold text-neon-cyan mb-3">Important Message</h3><p class="text-sm text-white/60">This is a very important message that you definitely needed to see in a modal.</p></div></div>
+  <div id="l6-modal-2" class="chaos-modal" style="z-index:201"><div class="modal-box"><span id="l6-modal2-close" class="modal-close">✕</span><h3 class="text-lg font-bold text-neon-magenta mb-3">Wait, There's More!</h3><p class="text-sm text-white/60">Did you think closing a modal would close it? Here's another one.</p></div></div>
+  <div id="l6-modal-3" class="chaos-modal" style="z-index:202"><div class="modal-box"><span id="l6-modal3-close" class="modal-close">✕</span><h3 class="text-lg font-bold text-neon-purple mb-3">One More Thing...</h3><p class="text-sm text-white/60 mb-4">You're trapped. Good luck finding the way out.</p><p id="l6-secret-close" class="text-[8px] text-white/10 cursor-pointer hover:text-white/30 transition">click here to actually close all modals</p></div></div>
+  <div id="l6-confirm-1" class="chaos-modal"><div class="modal-box text-center"><h3 class="text-lg font-bold mb-3">Are you sure?</h3><button id="l6-c1-yes" class="px-4 py-2 rounded-lg bg-neon-cyan/20 text-neon-cyan mr-2">Yes</button><button onclick="this.closest('.chaos-modal').classList.remove('active')" class="px-4 py-2 rounded-lg bg-white/5 text-white/40">No</button></div></div>
+  <div id="l6-confirm-2" class="chaos-modal" style="z-index:201"><div class="modal-box text-center"><h3 class="text-lg font-bold mb-3">Are you REALLY sure?</h3><button id="l6-c2-yes" class="px-4 py-2 rounded-lg bg-neon-magenta/20 text-neon-magenta mr-2">Yes, Really</button><button onclick="this.closest('.chaos-modal').classList.remove('active')" class="px-4 py-2 rounded-lg bg-white/5 text-white/40">No</button></div></div>
+  <div id="l6-confirm-3" class="chaos-modal" style="z-index:202"><div class="modal-box text-center"><h3 class="text-lg font-bold mb-3">Final Answer?</h3><button id="l6-c3-yes" class="px-4 py-2 rounded-lg bg-neon-purple/20 text-neon-purple mr-2">FINAL YES</button><button onclick="this.closest('.chaos-modal').classList.remove('active')" class="px-4 py-2 rounded-lg bg-white/5 text-white/40">No</button></div></div>
+  <div id="l6-expanding-modal" class="chaos-modal"><div class="modal-box" id="l6-expand-box" style="width:200px;height:150px;transition:all 5s linear"><p class="text-sm">This modal is expanding. Click inside to stop it.</p></div></div>
+
+  <!-- ═══ LEVEL 7: LOADING SCREEN LUNACY ═══ -->
+  <section id="screen-level7" class="screen min-h-screen px-4 md:px-8 pt-24 pb-16 hidden">
+    <div class="max-w-lg mx-auto">
+      <div class="flex items-center gap-3 mb-8"><button class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 transition" data-nav="hub">←</button><div><h2 class="text-2xl font-bold">Loading Screen Lunacy</h2><p class="text-xs text-white/40">Level 7 · Progress bars that lie to your face.</p></div></div>
+      <div class="space-y-6">
+        <div class="glass-card p-5"><p class="text-sm font-medium mb-3">Loading your content...</p><div id="l7-progress-main" class="h-3 bg-white/10 rounded-full overflow-hidden mb-2 cursor-pointer"><div id="l7-bar-main" class="h-full bg-gradient-to-r from-neon-cyan to-neon-blue rounded-full transition-none" style="width:0%"></div></div><p class="text-xs text-white/40" id="l7-progress-text">0%</p></div>
+        <div id="l7-progress-hidden" class="glass-card p-5 hidden"><p class="text-sm font-medium mb-3 text-neon-magenta">Just kidding, here's the real progress...</p><div class="h-3 bg-white/10 rounded-full overflow-hidden mb-2"><div id="l7-bar-hidden" class="h-full bg-gradient-to-r from-neon-magenta to-neon-purple rounded-full transition-none" style="width:0%"></div></div><p class="text-xs text-white/40" id="l7-hidden-text">0%</p></div>
+        <div class="glass-card p-5"><p class="text-sm font-medium mb-2">Estimated time remaining:</p><p class="text-2xl font-bold text-neon-purple" id="l7-time-text">2 seconds</p></div>
+        <div class="glass-card p-5 flex items-center justify-center"><div id="l7-spinner" class="w-12 h-12 border-4 border-white/10 border-t-neon-cyan rounded-full" style="animation:spin 1s linear infinite"></div><p class="ml-4 text-sm text-white/50">Loading spinner</p></div>
+      </div>
+      <div class="glass-card p-5 mt-8"><div class="flex justify-between items-center mb-3"><p class="text-sm font-medium">Level Progress</p><span class="text-xs text-white/40" id="l7-progress-text-main">0 / 7 chaos events</span></div><div class="h-2 bg-white/10 rounded-full overflow-hidden"><div id="l7-progress-bar" class="h-full bg-gradient-to-r from-neon-purple to-neon-blue rounded-full transition-all duration-500" style="width:0%"></div></div><button id="l7-complete" class="mt-4 w-full py-3 rounded-xl bg-neon-purple/10 border border-neon-purple/30 text-neon-purple font-semibold hover:bg-neon-purple/20 transition hidden">Complete Level →</button></div>
+    </div>
+  </section>
+
+  <!-- ═══ LEVEL 8: NOTIFICATION NIGHTMARE ═══ -->
+  <section id="screen-level8" class="screen min-h-screen px-4 md:px-8 pt-24 pb-16 hidden">
+    <div class="max-w-lg mx-auto">
+      <div class="flex items-center gap-3 mb-8"><button class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 transition" data-nav="hub">←</button><div><h2 class="text-2xl font-bold">Notification Nightmare</h2><p class="text-xs text-white/40">Level 8 · Unstoppable notification spam.</p></div></div>
+      <div class="space-y-6">
+        <div id="l8-notif-stack" class="space-y-2 max-h-60 overflow-y-auto"></div>
+        <div class="glass-card p-5 flex items-center justify-between"><p class="text-sm">Notifications</p><div class="flex items-center gap-2"><span id="l8-badge-counter" class="w-8 h-8 rounded-full bg-red-500 text-white text-xs font-bold flex items-center justify-center cursor-pointer">99</span><button id="l8-disable-btn" class="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-xs hover:bg-white/10 transition">Turn Off</button></div></div>
+        <div class="flex gap-3"><button id="l8-unsub-btn" class="flex-1 py-2 rounded-lg bg-neon-magenta/10 border border-neon-magenta/30 text-neon-magenta text-sm hover:bg-neon-magenta/20 transition">Unsubscribe</button><button id="l8-clear-all" class="flex-1 py-2 rounded-lg bg-neon-cyan/10 border border-neon-cyan/30 text-neon-cyan text-sm hover:bg-neon-cyan/20 transition">Clear All</button></div>
+      </div>
+      <div class="glass-card p-5 mt-8"><div class="flex justify-between items-center mb-3"><p class="text-sm font-medium">Level Progress</p><span class="text-xs text-white/40" id="l8-progress-text">0 / 8 chaos events</span></div><div class="h-2 bg-white/10 rounded-full overflow-hidden"><div id="l8-progress-bar" class="h-full bg-gradient-to-r from-neon-blue to-neon-cyan rounded-full transition-all duration-500" style="width:0%"></div></div><button id="l8-complete" class="mt-4 w-full py-3 rounded-xl bg-neon-blue/10 border border-neon-blue/30 text-neon-blue font-semibold hover:bg-neon-blue/20 transition hidden">Complete Level →</button></div>
+    </div>
+  </section>
+
+  <!-- ═══ LEVEL 9: DARK PATTERN DUNGEON ═══ -->
+  <section id="screen-level9" class="screen min-h-screen px-4 md:px-8 pt-24 pb-16 hidden">
+    <div class="max-w-lg mx-auto">
+      <div class="flex items-center gap-3 mb-8"><button class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 transition" data-nav="hub">←</button><div><h2 class="text-2xl font-bold">Dark Pattern Dungeon</h2><p class="text-xs text-white/40">Level 9 · Manipulative design at its worst.</p></div></div>
+      <div class="space-y-6">
+        <!-- Confirmshaming -->
+        <div id="l9-unsub-section" class="glass-card p-6 text-center">
+          <p class="text-3xl mb-3">😢</p>
+          <p class="text-sm text-white/60 mb-4">Are you sure you want to unsubscribe? You'll miss out on amazing deals!</p>
+          <div class="flex gap-3">
+            <button id="l9-unsub-yes" class="flex-1 py-2 rounded-lg bg-white/5 border border-white/10 text-white/40 text-xs">No, I don't want to save money</button>
+            <button id="l9-unsub-no" class="flex-1 py-2 rounded-lg bg-neon-cyan/20 border border-neon-cyan/40 text-neon-cyan font-semibold text-xs">Yes, keep my subscription!</button>
           </div>
-          <label class="sab-toggle relative inline-block w-12 h-7 cursor-pointer">
-            <input type="checkbox" class="sr-only sab-check" data-setting="dark" checked>
-            <span class="toggle-slider"></span>
+        </div>
+        <!-- Hidden pricing -->
+        <div id="l9-pricing" class="glass-card p-6">
+          <p class="text-sm font-medium mb-4">Choose your plan:</p>
+          <div class="grid grid-cols-3 gap-3">
+            <div id="l9-free-plan" class="glass-card p-4 text-center cursor-pointer hover:border-neon-cyan/30 transition">
+              <p class="font-bold text-neon-cyan">Free</p><p class="text-xs text-white/30">$0/mo</p>
+              <p id="l9-hidden-fees" class="text-[9px] text-red-400 mt-2 hidden">* Plus $9.99/mo processing fee, $4.99 convenience fee, and $2.99 existence fee</p>
+            </div>
+            <div class="glass-card p-4 text-center opacity-50"><p class="font-bold text-neon-purple">Pro</p><p class="text-xs text-white/30">$19/mo</p></div>
+            <div class="glass-card p-4 text-center opacity-50"><p class="font-bold text-neon-magenta">Ultra</p><p class="text-xs text-white/30">$99/mo</p></div>
+          </div>
+        </div>
+        <!-- Shopping cart -->
+        <div id="l9-cart-section" class="glass-card p-6">
+          <p class="text-sm font-medium mb-3">Your Cart:</p>
+          <div id="l9-cart-items" class="space-y-2">
+            <div class="flex justify-between items-center"><span class="text-sm">Premium Widget</span><button class="l9-remove-btn text-xs text-red-400 hover:text-red-300">Remove</button></div>
+            <div class="flex justify-between items-center"><span class="text-sm">Deluxe Gadget</span><button class="l9-remove-btn text-xs text-red-400 hover:text-red-300">Remove</button></div>
+          </div>
+        </div>
+        <!-- Quadruple negative -->
+        <div class="glass-card p-6">
+          <label class="flex items-start gap-3 cursor-pointer">
+            <input type="checkbox" id="l9-optout" class="mt-1 accent-neon-magenta">
+            <span class="text-sm text-white/60">Uncheck this box to not opt-out of not receiving no emails</span>
           </label>
         </div>
-        <div class="glass-card p-4 flex items-center justify-between">
-          <div>
-            <p class="font-medium">Notifications</p>
-            <p class="text-xs text-white/30">Receive push alerts</p>
-          </div>
-          <label class="sab-toggle relative inline-block w-12 h-7 cursor-pointer">
-            <input type="checkbox" class="sr-only sab-check" data-setting="notif">
-            <span class="toggle-slider"></span>
-          </label>
+        <!-- Countdown -->
+        <div class="glass-card p-6 text-center">
+          <p class="text-sm text-white/50 mb-2">Deal expires in:</p>
+          <p class="text-3xl font-bold text-neon-magenta" id="l9-countdown">10:00</p>
         </div>
-        <div class="glass-card p-4 flex items-center justify-between">
-          <div>
-            <p class="font-medium">Sound Effects</p>
-            <p class="text-xs text-white/30">Play UI sounds</p>
-          </div>
-          <label class="sab-toggle relative inline-block w-12 h-7 cursor-pointer">
-            <input type="checkbox" class="sr-only sab-check" data-setting="sound">
-            <span class="toggle-slider"></span>
-          </label>
-        </div>
-        <div class="glass-card p-4 flex items-center justify-between">
-          <div>
-            <p class="font-medium">Auto-Save</p>
-            <p class="text-xs text-white/30">Save changes automatically</p>
-          </div>
-          <label class="sab-toggle relative inline-block w-12 h-7 cursor-pointer">
-            <input type="checkbox" class="sr-only sab-check" data-setting="autosave" checked>
-            <span class="toggle-slider"></span>
-          </label>
-        </div>
-        <div class="glass-card p-4 flex items-center justify-between">
-          <div>
-            <p class="font-medium">Privacy Mode</p>
-            <p class="text-xs text-white/30">Hide your activity</p>
-          </div>
-          <label class="sab-toggle relative inline-block w-12 h-7 cursor-pointer">
-            <input type="checkbox" class="sr-only sab-check" data-setting="privacy">
-            <span class="toggle-slider"></span>
-          </label>
+        <!-- Fine print -->
+        <div class="glass-card p-6">
+          <p class="text-sm text-white/50 mb-2">Please read the fine print:</p>
+          <p id="l9-fine-print" class="runaway-text text-[10px] text-white/30 leading-relaxed">By using this service you agree that we may share your data with 847 third-party partners, collect your browsing history, read your thoughts, predict your future, and sell your digital soul. This agreement is binding across all dimensions and timelines. No refunds. No returns. No escape.</p>
         </div>
       </div>
-      <!-- Confirm/cancel with swapped modal -->
-      <div class="glass-card p-5 mb-8">
-        <p class="text-sm font-medium mb-3">Save your settings?</p>
-        <div class="flex gap-3">
-          <button id="l5-save-cancel" class="flex-1 py-2.5 rounded-xl bg-neon-cyan/20 border border-neon-cyan/40 text-neon-cyan font-semibold hover:bg-neon-cyan/30 transition">Cancel</button>
-          <button id="l5-save-confirm" class="flex-1 py-2.5 rounded-xl bg-red-500/20 border border-red-500/40 text-red-400 font-semibold hover:bg-red-500/30 transition">Delete Account</button>
+      <div class="glass-card p-5 mt-8"><div class="flex justify-between items-center mb-3"><p class="text-sm font-medium">Level Progress</p><span class="text-xs text-white/40" id="l9-progress-text">0 / 8 chaos events</span></div><div class="h-2 bg-white/10 rounded-full overflow-hidden"><div id="l9-progress-bar" class="h-full bg-gradient-to-r from-neon-magenta to-neon-purple rounded-full transition-all duration-500" style="width:0%"></div></div><button id="l9-complete" class="mt-4 w-full py-3 rounded-xl bg-neon-magenta/10 border border-neon-magenta/30 text-neon-magenta font-semibold hover:bg-neon-magenta/20 transition hidden">Complete Level →</button></div>
+    </div>
+  </section>
+
+  <!-- ═══ LEVEL 10: THE FINAL CHAOS (BOSS) ═══ -->
+  <section id="screen-level10" class="screen min-h-screen px-4 md:px-8 pt-24 pb-16 hidden">
+    <div class="max-w-lg mx-auto">
+      <div class="flex items-center gap-3 mb-8"><button class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 transition" data-nav="hub">←</button><div><h2 class="text-2xl font-bold text-red-400">THE FINAL CHAOS</h2><p class="text-xs text-white/40">Level 10 · Everything. All at once.</p></div></div>
+      <div id="l10-stage1" class="boss-stage active space-y-4">
+        <p class="text-sm text-white/50 mb-3">Stage 1: Navigate the lies</p>
+        <div class="grid grid-cols-3 gap-3">
+          <button class="l10-lie-btn glass-card p-4 text-center hover:border-neon-cyan/30 transition"><span class="text-2xl block mb-1">🏠</span><p class="text-xs">Home</p></button>
+          <button class="l10-lie-btn glass-card p-4 text-center hover:border-neon-magenta/30 transition"><span class="text-2xl block mb-1">⚙️</span><p class="text-xs">Settings</p></button>
+          <button class="l10-lie-btn glass-card p-4 text-center hover:border-neon-purple/30 transition"><span class="text-2xl block mb-1">👤</span><p class="text-xs">Profile</p></button>
         </div>
       </div>
-      <!-- Loading that only finishes on "wrong" action -->
-      <div class="glass-card p-5 mb-8">
-        <p class="text-sm font-medium mb-3">Applying your settings...</p>
-        <div class="h-3 bg-white/10 rounded-full overflow-hidden mb-3">
-          <div id="l5-apply-bar" class="h-full bg-gradient-to-r from-neon-magenta to-neon-purple rounded-full" style="width:0%"></div>
-        </div>
-        <p class="text-xs text-white/40 mb-3" id="l5-apply-text">Waiting...</p>
-        <div class="flex gap-3">
-          <button id="l5-apply-wait" class="flex-1 py-2 rounded-lg bg-white/5 border border-white/10 text-sm hover:bg-white/10 transition">Wait Patiently</button>
-          <button id="l5-apply-abort" class="flex-1 py-2 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-sm hover:bg-red-500/20 transition">Abort</button>
+      <div id="l10-stage2" class="boss-stage space-y-4">
+        <p class="text-sm text-white/50 mb-3">Stage 2: Fill the broken form</p>
+        <input id="l10-input" type="text" placeholder="Type anything..." class="input-field w-full" autocomplete="off">
+        <p id="l10-input-hint" class="text-xs text-white/30">Enter your name</p>
+        <button id="l10-submit" class="w-full py-2 rounded-xl bg-neon-magenta/20 border border-neon-magenta/40 text-neon-magenta font-semibold">Submit</button>
+      </div>
+      <div id="l10-stage3" class="boss-stage space-y-4">
+        <p class="text-sm text-white/50 mb-3">Stage 3: Swipe through chaos</p>
+        <div id="l10-notif-area" class="space-y-2 max-h-32 overflow-y-auto"></div>
+        <div class="h-40 rounded-xl glass-card flex items-center justify-center">
+          <button id="l10-swipe-btn" class="px-6 py-3 rounded-xl bg-neon-purple/20 border border-neon-purple/40 text-neon-purple font-semibold">Swipe Right →</button>
         </div>
       </div>
-      <!-- Progress -->
-      <div class="glass-card p-5">
-        <div class="flex justify-between items-center mb-3">
-          <p class="text-sm font-medium">Level Progress</p>
-          <span class="text-xs text-white/40" id="l5-progress-text">0 / 8 chaos events</span>
+      <div id="l10-stage4" class="boss-stage space-y-4">
+        <p class="text-sm text-white/50 mb-3">Stage 4: Catch the button</p>
+        <div id="l10-chase" class="relative h-40 rounded-xl glass-card overflow-hidden">
+          <button id="l10-runaway" class="absolute px-4 py-2 rounded-lg bg-gradient-to-r from-neon-cyan to-neon-blue text-white font-semibold text-sm" style="top:50%;left:50%;transform:translate(-50%,-50%)">Final Submit</button>
         </div>
-        <div class="h-2 bg-white/10 rounded-full overflow-hidden">
-          <div id="l5-progress-bar" class="h-full bg-gradient-to-r from-neon-magenta to-neon-purple rounded-full transition-all duration-500" style="width:0%"></div>
-        </div>
-        <button id="l5-complete" class="mt-4 w-full py-3 rounded-xl bg-neon-magenta/10 border border-neon-magenta/30 text-neon-magenta font-semibold hover:bg-neon-magenta/20 transition hidden">Complete Level →</button>
+        <div id="l10-shame-popup" class="glass-card p-4 text-center hidden"><p class="text-sm text-white/60">Are you sure you want to submit? You might regret it...</p><button id="l10-shame-yes" class="mt-2 px-4 py-1.5 rounded-lg bg-white/5 text-white/40 text-xs">No, I enjoy suffering</button></div>
       </div>
+      <div id="l10-stage5" class="boss-stage space-y-4">
+        <p class="text-sm text-white/50 mb-3">Stage 5: EVERYTHING AT ONCE</p>
+        <div class="grid grid-cols-2 gap-3">
+          <div class="glass-card p-3 flex items-center justify-between"><span class="text-xs">Chaos Mode</span><label class="relative inline-block w-10 h-6 cursor-pointer"><input type="checkbox" class="sr-only l10-toggle" checked><span class="toggle-slider"></span></label></div>
+          <div class="glass-card p-3 flex items-center justify-between"><span class="text-xs">Sanity</span><label class="relative inline-block w-10 h-6 cursor-pointer"><input type="checkbox" class="sr-only l10-toggle"><span class="toggle-slider"></span></label></div>
+        </div>
+        <div id="l10-final-notifs" class="space-y-1 max-h-24 overflow-y-auto"></div>
+        <button id="l10-final-btn" class="w-full py-3 rounded-xl bg-gradient-to-r from-red-500 to-neon-magenta text-white font-bold text-lg">EMBRACE THE CHAOS</button>
+      </div>
+      <div class="glass-card p-5 mt-8"><div class="flex justify-between items-center mb-3"><p class="text-sm font-medium">Boss Progress</p><span class="text-xs text-white/40" id="l10-progress-text">0 / 10 chaos events</span></div><div class="h-2 bg-white/10 rounded-full overflow-hidden"><div id="l10-progress-bar" class="h-full bg-gradient-to-r from-red-500 to-neon-magenta rounded-full transition-all duration-500" style="width:0%"></div></div><button id="l10-complete" class="mt-4 w-full py-3 rounded-xl bg-red-500/10 border border-red-500/30 text-red-400 font-semibold hover:bg-red-500/20 transition hidden">Victory →</button></div>
     </div>
   </section>
 
   <!-- ═══ LEVEL REVEAL / DEBRIEF ═══ -->
   <section id="screen-reveal" class="screen min-h-screen px-4 md:px-8 pt-24 pb-16 hidden">
     <div class="max-w-lg mx-auto text-center">
-      <div class="mb-8">
-        <span class="text-6xl block mb-4" id="reveal-icon">🎉</span>
-        <h2 class="text-3xl font-bold mb-2" id="reveal-title">Level Complete!</h2>
-        <p class="text-white/50" id="reveal-subtitle">You survived the chaos.</p>
-      </div>
-      <div class="glass-card p-6 text-left mb-8">
-        <h3 class="text-lg font-semibold text-neon-cyan mb-3">What Went Wrong (On Purpose)</h3>
-        <ul id="reveal-wrongs" class="space-y-2 text-sm text-white/60"></ul>
-      </div>
-      <div class="glass-card p-6 text-left mb-8">
-        <h3 class="text-lg font-semibold text-green-400 mb-3">✅ The Right Way</h3>
-        <ul id="reveal-rights" class="space-y-2 text-sm text-white/60"></ul>
-      </div>
-      <div class="glass-card p-6 text-left mb-8">
-        <h3 class="text-lg font-semibold text-neon-magenta mb-3">📚 UX Lesson</h3>
-        <p id="reveal-lesson" class="text-sm text-white/60 leading-relaxed"></p>
-      </div>
-      <div class="flex items-center justify-center gap-4">
-        <p class="text-sm text-white/40">Chaos earned: <span class="text-neon-purple font-bold" id="reveal-chaos">+0</span></p>
-      </div>
-      <button id="reveal-back" class="mt-8 px-8 py-3 rounded-2xl bg-gradient-to-r from-neon-cyan to-neon-blue text-white font-semibold shadow-lg hover:shadow-neon-cyan/30 transition-all active:scale-95" data-nav="hub">
-        Back to Hub →
-      </button>
+      <div class="mb-8"><span class="text-6xl block mb-4" id="reveal-icon">🎉</span><h2 class="text-3xl font-bold mb-2" id="reveal-title">Level Complete!</h2><p class="text-white/50" id="reveal-subtitle">You survived the chaos.</p></div>
+      <div class="glass-card p-6 text-left mb-8"><h3 class="text-lg font-semibold text-neon-cyan mb-3">What Went Wrong (On Purpose)</h3><ul id="reveal-wrongs" class="space-y-2 text-sm text-white/60"></ul></div>
+      <div class="glass-card p-6 text-left mb-8"><h3 class="text-lg font-semibold text-green-400 mb-3">✅ The Right Way</h3><ul id="reveal-rights" class="space-y-2 text-sm text-white/60"></ul></div>
+      <div class="glass-card p-6 text-left mb-8"><h3 class="text-lg font-semibold text-neon-magenta mb-3">📚 UX Lesson</h3><p id="reveal-lesson" class="text-sm text-white/60 leading-relaxed"></p></div>
+      <div class="flex items-center justify-center gap-4"><p class="text-sm text-white/40">Chaos earned: <span class="text-neon-purple font-bold" id="reveal-chaos">+0</span></p></div>
+      <button class="mt-8 px-8 py-3 rounded-2xl bg-gradient-to-r from-neon-cyan to-neon-blue text-white font-semibold shadow-lg hover:shadow-neon-cyan/30 transition-all active:scale-95" data-nav="hub">Back to Hub →</button>
     </div>
   </section>
 
-  <script src="app.js"></script>
+  <!-- ═══════════════ SCRIPTS ═══════════════ -->
+  <script src="js/core.js"></script>
+  <script src="js/levels/level1.js"></script>
+  <script src="js/levels/level2.js"></script>
+  <script src="js/levels/level3.js"></script>
+  <script src="js/levels/level4.js"></script>
+  <script src="js/levels/level5.js"></script>
+  <script src="js/levels/level6.js"></script>
+  <script src="js/levels/level7.js"></script>
+  <script src="js/levels/level8.js"></script>
+  <script src="js/levels/level9.js"></script>
+  <script src="js/levels/boss.js"></script>
+  <script src="js/chaos-engine.js"></script>
+  <script src="js/effects.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/meta-chaos.js"></script>
+  <script src="js/easter-eggs.js"></script>
+  <script src="js/social.js"></script>
+  <script src="js/onboarding.js"></script>
   <script src="install-prompt.js"></script>
   <script>
     if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
+      window.addEventListener('load', function() {
         navigator.serviceWorker.register('/service-worker.js')
-          .then((reg) => console.log('[IntuiNO] SW registered, scope:', reg.scope))
-          .catch((err) => console.warn('[IntuiNO] SW registration failed:', err));
+          .then(function(reg) { console.log('[IntuiNO] SW registered, scope:', reg.scope); })
+          .catch(function(err) { console.warn('[IntuiNO] SW registration failed:', err); });
       });
     }
   </script>

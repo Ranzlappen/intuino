@@ -168,3 +168,176 @@ html:not(.dark) #intrusive-banner .glass-card {
   .orb-2 { width: 200px; height: 200px; }
   .orb-3 { width: 150px; height: 150px; }
 }
+
+/* ══════════════ CHAOS ENGINE TIERS ══════════════ */
+
+/* Tier 1: Lying Cursor */
+body.chaos-tier-1 a, body.chaos-tier-1 button { cursor: default; }
+body.chaos-tier-1 p, body.chaos-tier-1 h2, body.chaos-tier-1 h3, body.chaos-tier-1 span { cursor: pointer; }
+
+/* Tier 2: Scanlines + Glitch Text */
+body.chaos-tier-2::after,
+body.chaos-tier-3::after,
+body.chaos-tier-4::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9998;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0,0,0,0) 0px,
+    rgba(0,0,0,0) 2px,
+    rgba(0,240,255,.03) 2px,
+    rgba(0,240,255,.03) 4px
+  );
+}
+body.chaos-tier-3::after { background: repeating-linear-gradient(0deg, rgba(0,0,0,0) 0px, rgba(0,0,0,0) 2px, rgba(255,0,229,.05) 2px, rgba(255,0,229,.05) 4px); }
+body.chaos-tier-4::after { background: repeating-linear-gradient(0deg, rgba(0,0,0,0) 0px, rgba(0,0,0,0) 1px, rgba(239,68,68,.06) 1px, rgba(239,68,68,.06) 3px); }
+
+/* Glitch text effect */
+@keyframes glitchText {
+  0%, 100% { text-shadow: none; }
+  20% { text-shadow: -2px 0 #00f0ff, 2px 0 #ff00e5; }
+  40% { text-shadow: 2px 0 #00f0ff, -2px 0 #ff00e5; }
+  60% { text-shadow: -1px 1px #00f0ff, 1px -1px #ff00e5; }
+  80% { text-shadow: 1px -1px #00f0ff, -1px 1px #ff00e5; }
+}
+body.chaos-tier-2 h2, body.chaos-tier-2 h3,
+body.chaos-tier-3 h2, body.chaos-tier-3 h3,
+body.chaos-tier-4 h2, body.chaos-tier-4 h3 {
+  animation: glitchText 2s infinite;
+}
+body.chaos-tier-4 h1, body.chaos-tier-4 h2, body.chaos-tier-4 h3, body.chaos-tier-4 p {
+  animation: glitchText .5s infinite;
+}
+
+/* Tier 3: Drunk elements */
+@keyframes elementDrunk {
+  0%, 100% { transform: rotate(0deg) translateX(0); }
+  25% { transform: rotate(0.5deg) translateX(2px); }
+  50% { transform: rotate(-0.3deg) translateX(-1px); }
+  75% { transform: rotate(0.2deg) translateX(1px); }
+}
+body.chaos-tier-3 .glass-card,
+body.chaos-tier-4 .glass-card {
+  animation: elementDrunk 4s ease-in-out infinite;
+}
+
+/* Tier 4: Hue cycle */
+@keyframes hueCycle {
+  0% { filter: hue-rotate(0deg); }
+  100% { filter: hue-rotate(360deg); }
+}
+body.chaos-tier-4 { animation: hueCycle 8s linear infinite; }
+
+/* Chaos vignette overlay */
+#chaos-overlay {
+  position: fixed; inset: 0; pointer-events: none; z-index: 9997;
+  transition: opacity .5s;
+}
+body.chaos-tier-2 #chaos-overlay { opacity: 1; background: radial-gradient(ellipse at center, transparent 60%, rgba(0,0,0,.3) 100%); }
+body.chaos-tier-3 #chaos-overlay { opacity: 1; background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,.5) 100%); }
+body.chaos-tier-4 #chaos-overlay { opacity: 1; background: radial-gradient(ellipse at center, transparent 20%, rgba(239,68,68,.15) 60%, rgba(0,0,0,.6) 100%); }
+
+/* Screen tear effect */
+@keyframes screenTear {
+  0%, 100% { clip-path: inset(0); }
+  10% { clip-path: inset(40% 0 50% 0); transform: translateX(3px); }
+  20% { clip-path: inset(0); transform: none; }
+  50% { clip-path: inset(20% 0 70% 0); transform: translateX(-2px); }
+  60% { clip-path: inset(0); transform: none; }
+}
+
+/* ══════════════ FAKE CRASH SCREENS ══════════════ */
+#fake-crash {
+  position: fixed; inset: 0; z-index: 10000;
+  display: none;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+}
+#fake-crash.active { display: flex; align-items: center; justify-content: center; }
+#fake-crash .crash-dismiss {
+  position: absolute; bottom: 10px; right: 10px;
+  font-size: 6px; opacity: .1; cursor: pointer; color: inherit;
+}
+#fake-crash .crash-dismiss:hover { opacity: .4; }
+
+/* ══════════════ FAKE UPDATE DIALOG ══════════════ */
+#fake-update {
+  position: fixed; inset: 0; z-index: 9999;
+  display: none; align-items: center; justify-content: center;
+  background: rgba(0,0,0,.7); backdrop-filter: blur(4px);
+}
+#fake-update.active { display: flex; }
+
+/* ══════════════ FAKE DEV TOOLS ══════════════ */
+#fake-devtools {
+  position: fixed; top: 0; right: -400px; bottom: 0; width: 400px;
+  z-index: 9990; background: #1e1e1e; border-left: 1px solid #333;
+  font-family: 'Consolas', 'Courier New', monospace; font-size: 11px; color: #d4d4d4;
+  transition: right .3s ease;
+  overflow: hidden;
+}
+#fake-devtools.open { right: 0; }
+#fake-devtools .dt-tabs { display: flex; background: #2d2d2d; border-bottom: 1px solid #333; }
+#fake-devtools .dt-tab { padding: 8px 16px; cursor: pointer; border-bottom: 2px solid transparent; }
+#fake-devtools .dt-tab.active { border-bottom-color: #00f0ff; color: #00f0ff; }
+#fake-devtools .dt-content { padding: 12px; overflow-y: auto; height: calc(100% - 36px); }
+
+/* ══════════════ ONBOARDING OVERLAY ══════════════ */
+#onboarding-overlay {
+  position: fixed; inset: 0; z-index: 10001;
+  display: none; align-items: center; justify-content: center;
+  background: rgba(0,0,0,.85); backdrop-filter: blur(8px);
+}
+#onboarding-overlay.active { display: flex; }
+.onboarding-step { text-align: center; max-width: 400px; padding: 2rem; }
+
+/* ══════════════ MODAL MADNESS (Level 6) ══════════════ */
+.chaos-modal {
+  position: fixed; inset: 0; z-index: 200;
+  display: none; align-items: center; justify-content: center;
+  background: rgba(0,0,0,.6); backdrop-filter: blur(4px);
+}
+.chaos-modal.active { display: flex; }
+.chaos-modal .modal-box {
+  background: rgba(18,18,42,.95); border: 1px solid rgba(255,255,255,.1);
+  border-radius: 1rem; padding: 2rem; max-width: 400px; width: 90%; position: relative;
+}
+.chaos-modal .modal-close {
+  position: absolute; top: 12px; right: 12px;
+  width: 28px; height: 28px; border-radius: 50%;
+  background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1);
+  color: white; display: flex; align-items: center; justify-content: center;
+  cursor: pointer; font-size: 14px;
+}
+
+/* ══════════════ LEVEL 0 PERFECT UX ══════════════ */
+#screen-level0 {
+  background: #f8f9fa; color: #333;
+  font-family: Arial, Helvetica, sans-serif;
+}
+#screen-level0 .perfect-btn {
+  background: #0066cc; color: white; border: none; border-radius: 6px;
+  padding: 10px 24px; cursor: pointer; font-size: 14px;
+}
+#screen-level0 .perfect-btn:hover { background: #0052a3; }
+
+/* ══════════════ NOTIFICATION DOTS ══════════════ */
+.l8-dot {
+  position: absolute; top: -2px; right: -2px;
+  width: 8px; height: 8px; border-radius: 50%;
+  background: #ef4444; pointer-events: none;
+}
+
+/* ══════════════ DARK PATTERN FINE PRINT ══════════════ */
+.runaway-text { transition: transform .15s ease-out; }
+
+/* ══════════════ BOSS LEVEL ══════════════ */
+.boss-stage { display: none; }
+.boss-stage.active { display: block; }
+
+@media (max-width: 640px) {
+  #fake-devtools { width: 100%; right: -100%; }
+}
+@keyframes spin { to { transform: rotate(360deg); } }
