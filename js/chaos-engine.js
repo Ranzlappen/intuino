@@ -122,34 +122,35 @@
       }, randRange(8000, 15000));
     }
 
-    // Tier 2+: Element drift
+    // Tier 2+: Occasional subtle element drift — one card, small nudge, infrequent
     if (tier >= 2) {
+      var driftDelay = tier >= 3 ? 6000 : 10000;
       this._elementDriftInterval = setInterval(function () {
         var cards = document.querySelectorAll('.glass-card');
         if (cards.length === 0) return;
         var card = cards[Math.floor(Math.random() * cards.length)];
-        var tx = randRange(-6, 6);
-        var ty = randRange(-6, 6);
-        var rot = randRange(-3, 3);
-        card.style.transition = 'transform 0.3s ease';
+        var tx = randRange(-2, 2);
+        var ty = randRange(-2, 2);
+        var rot = (Math.random() - 0.5) * 0.8;
+        card.style.transition = 'transform 0.4s ease';
         card.style.transform = 'translate(' + tx + 'px, ' + ty + 'px) rotate(' + rot + 'deg)';
         setTimeout(function () {
           card.style.transform = '';
           setTimeout(function () {
             card.style.transition = '';
-          }, 300);
-        }, 1000);
-      }, 3000);
+          }, 400);
+        }, 1500);
+      }, driftDelay);
     }
 
-    // Tier 3+: Inversion pulse
+    // Tier 3+: Brief inversion flash — quick and infrequent
     if (tier >= 3) {
       this._inversionPulseInterval = setInterval(function () {
         document.body.classList.add('chaos-invert');
         setTimeout(function () {
           document.body.classList.remove('chaos-invert');
-        }, 300);
-      }, randRange(10000, 20000));
+        }, 150);
+      }, randRange(20000, 35000));
     }
 
     // Tier 4+: Favicon cycling

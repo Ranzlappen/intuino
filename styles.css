@@ -175,7 +175,7 @@ html:not(.dark) #intrusive-banner .glass-card {
 body.chaos-tier-1 a, body.chaos-tier-1 button { cursor: default; }
 body.chaos-tier-1 p, body.chaos-tier-1 h2, body.chaos-tier-1 h3, body.chaos-tier-1 span { cursor: pointer; }
 
-/* Tier 2: Scanlines + Glitch Text */
+/* Tier 2+: Very faint scanlines — barely perceptible */
 body.chaos-tier-2::after,
 body.chaos-tier-3::after,
 body.chaos-tier-4::after {
@@ -187,58 +187,63 @@ body.chaos-tier-4::after {
   background: repeating-linear-gradient(
     0deg,
     rgba(0,0,0,0) 0px,
-    rgba(0,0,0,0) 2px,
-    rgba(0,240,255,.03) 2px,
-    rgba(0,240,255,.03) 4px
+    rgba(0,0,0,0) 3px,
+    rgba(0,240,255,.015) 3px,
+    rgba(0,240,255,.015) 4px
   );
 }
-body.chaos-tier-3::after { background: repeating-linear-gradient(0deg, rgba(0,0,0,0) 0px, rgba(0,0,0,0) 2px, rgba(255,0,229,.05) 2px, rgba(255,0,229,.05) 4px); }
-body.chaos-tier-4::after { background: repeating-linear-gradient(0deg, rgba(0,0,0,0) 0px, rgba(0,0,0,0) 1px, rgba(239,68,68,.06) 1px, rgba(239,68,68,.06) 3px); }
+body.chaos-tier-3::after { background: repeating-linear-gradient(0deg, rgba(0,0,0,0) 0px, rgba(0,0,0,0) 3px, rgba(255,0,229,.02) 3px, rgba(255,0,229,.02) 4px); }
+body.chaos-tier-4::after { background: repeating-linear-gradient(0deg, rgba(0,0,0,0) 0px, rgba(0,0,0,0) 2px, rgba(239,68,68,.03) 2px, rgba(239,68,68,.03) 3px); }
 
-/* Glitch text effect */
+/* Glitch text effect — mostly idle, brief flicker */
 @keyframes glitchText {
-  0%, 100% { text-shadow: none; }
-  20% { text-shadow: -2px 0 #00f0ff, 2px 0 #ff00e5; }
-  40% { text-shadow: 2px 0 #00f0ff, -2px 0 #ff00e5; }
-  60% { text-shadow: -1px 1px #00f0ff, 1px -1px #ff00e5; }
-  80% { text-shadow: 1px -1px #00f0ff, -1px 1px #ff00e5; }
+  0%, 92%, 100% { text-shadow: none; }
+  93% { text-shadow: -1px 0 #00f0ff, 1px 0 #ff00e5; }
+  95% { text-shadow: 1px 0 #00f0ff, -1px 0 #ff00e5; }
+  97% { text-shadow: none; }
 }
 body.chaos-tier-2 h2, body.chaos-tier-2 h3,
-body.chaos-tier-3 h2, body.chaos-tier-3 h3,
-body.chaos-tier-4 h2, body.chaos-tier-4 h3 {
-  animation: glitchText 2s infinite;
+body.chaos-tier-3 h2, body.chaos-tier-3 h3 {
+  animation: glitchText 6s ease infinite;
 }
-body.chaos-tier-4 h1, body.chaos-tier-4 h2, body.chaos-tier-4 h3, body.chaos-tier-4 p {
-  animation: glitchText .5s infinite;
+/* Tier 4 only: slightly more frequent but still not constant */
+@keyframes glitchTextHard {
+  0%, 85%, 100% { text-shadow: none; }
+  86% { text-shadow: -2px 0 #00f0ff, 2px 0 #ff00e5; }
+  89% { text-shadow: 2px 0 #00f0ff, -2px 0 #ff00e5; }
+  92% { text-shadow: -1px 1px #00f0ff, 1px -1px #ff00e5; }
+  94% { text-shadow: none; }
+}
+body.chaos-tier-4 h1, body.chaos-tier-4 h2, body.chaos-tier-4 h3 {
+  animation: glitchTextHard 4s ease infinite;
 }
 
-/* Tier 3: Drunk elements */
+/* Tier 3: Subtle occasional drift — NOT constant wobble */
 @keyframes elementDrunk {
-  0%, 100% { transform: rotate(0deg) translateX(0); }
-  25% { transform: rotate(0.5deg) translateX(2px); }
-  50% { transform: rotate(-0.3deg) translateX(-1px); }
-  75% { transform: rotate(0.2deg) translateX(1px); }
+  0%, 90%, 100% { transform: none; }
+  93% { transform: rotate(0.3deg) translateX(1px); }
+  96% { transform: rotate(-0.2deg) translateX(-1px); }
 }
-body.chaos-tier-3 .glass-card,
-body.chaos-tier-4 .glass-card {
-  animation: elementDrunk 4s ease-in-out infinite;
+body.chaos-tier-3 .glass-card:nth-child(3n),
+body.chaos-tier-4 .glass-card:nth-child(2n) {
+  animation: elementDrunk 8s ease-in-out infinite;
 }
 
-/* Tier 4: Hue cycle */
+/* Tier 4: Very slow hue drift — not a rave, just unsettling */
 @keyframes hueCycle {
   0% { filter: hue-rotate(0deg); }
   100% { filter: hue-rotate(360deg); }
 }
-body.chaos-tier-4 { animation: hueCycle 8s linear infinite; }
+body.chaos-tier-4 { animation: hueCycle 30s linear infinite; }
 
 /* Chaos vignette overlay */
 #chaos-overlay {
   position: fixed; inset: 0; pointer-events: none; z-index: 9997;
   transition: opacity .5s;
 }
-body.chaos-tier-2 #chaos-overlay { opacity: 1; background: radial-gradient(ellipse at center, transparent 60%, rgba(0,0,0,.3) 100%); }
-body.chaos-tier-3 #chaos-overlay { opacity: 1; background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,.5) 100%); }
-body.chaos-tier-4 #chaos-overlay { opacity: 1; background: radial-gradient(ellipse at center, transparent 20%, rgba(239,68,68,.15) 60%, rgba(0,0,0,.6) 100%); }
+body.chaos-tier-2 #chaos-overlay { opacity: 1; background: radial-gradient(ellipse at center, transparent 70%, rgba(0,0,0,.15) 100%); }
+body.chaos-tier-3 #chaos-overlay { opacity: 1; background: radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,.25) 100%); }
+body.chaos-tier-4 #chaos-overlay { opacity: 1; background: radial-gradient(ellipse at center, transparent 40%, rgba(239,68,68,.08) 70%, rgba(0,0,0,.35) 100%); }
 
 /* Screen tear effect */
 @keyframes screenTear {
