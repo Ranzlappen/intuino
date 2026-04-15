@@ -218,6 +218,14 @@ const IntuiNO = {
     var hasGsap = typeof gsap !== 'undefined';
     var self = this;
 
+    // Run cleanup for the screen being left
+    var cleanupKey = '_l' + this.state.currentScreen.replace('level', '') + 'Cleanup';
+    if (this.state.currentScreen === 'level10') cleanupKey = '_bossCleanup';
+    if (typeof this.state[cleanupKey] === 'function') {
+      this.state[cleanupKey]();
+      this.state[cleanupKey] = null;
+    }
+
     if (screen !== 'hero' && topbar) {
       if (hasGsap) { gsap.to(topbar, { y:0, duration:0.4, ease:'power2.out' }); }
       else { topbar.style.transform = 'translateY(0)'; }
@@ -391,6 +399,17 @@ const IntuiNO = {
           self.toast('Menu sent you somewhere unexpected.', 'warn');
         }, 400);
       });
+    });
+
+    document.getElementById('menu-settings').addEventListener('click', function(e) {
+      e.preventDefault();
+      self.addChaos(5);
+      self.toast('Settings have been unsettled.', 'info');
+    });
+    document.getElementById('menu-logout').addEventListener('click', function(e) {
+      e.preventDefault();
+      self.addChaos(3);
+      self.toast('You are already here. Or are you?', 'info');
     });
   },
 

@@ -41,14 +41,14 @@
     });
 
     // Show overlay and first step
-    overlay.classList.remove('hidden');
+    overlay.classList.add('active');
     showStep(1);
 
     /* ── step visibility ─────────────────────────────── */
 
     function showStep(n) {
       for (var i = 1; i <= totalSteps; i++) {
-        var stepEl = document.getElementById('onboarding-step-' + i);
+        var stepEl = document.getElementById('onboarding-step' + i);
         if (stepEl) {
           if (i === n) {
             stepEl.classList.remove('hidden');
@@ -67,7 +67,7 @@
 
     /* ── Step 1: "Click the Next button" — but it says "Previous" ── */
 
-    var step1Btn = document.getElementById('onboarding-btn-1');
+    var step1Btn = document.getElementById('onboarding-btn1');
     if (step1Btn) {
       step1Btn.addEventListener('click', function () {
         self.addChaos(2);
@@ -77,7 +77,7 @@
 
     /* ── Step 2: Upside-down instructions with correct "Next" ───── */
 
-    var step2Btn = document.getElementById('onboarding-btn-2');
+    var step2Btn = document.getElementById('onboarding-btn2');
     if (step2Btn) {
       step2Btn.addEventListener('click', function () {
         self.addChaos(2);
@@ -88,7 +88,7 @@
     /* ── Step 3: Backwards progress bar ────────────────────────── */
 
     function startBackwardsProgress() {
-      var bar = document.getElementById('onboarding-progress-bar');
+      var bar = document.getElementById('onboarding-bar');
       if (!bar) return;
 
       // Start at 75%, animate to 25% over 3 seconds
@@ -103,7 +103,7 @@
       if (progressInterval) clearInterval(progressInterval);
     }
 
-    var step3Btn = document.getElementById('onboarding-btn-3');
+    var step3Btn = document.getElementById('onboarding-btn3');
     if (step3Btn) {
       step3Btn.addEventListener('click', function () {
         self.addChaos(2);
@@ -113,11 +113,11 @@
 
     /* ── Step 4: "Skip Tutorial" completes the tutorial ────────── */
 
-    var step4Btn = document.getElementById('onboarding-btn-4');
+    var step4Btn = document.getElementById('onboarding-skip');
     if (step4Btn) {
       step4Btn.addEventListener('click', function () {
         self.addChaos(3);
-        overlay.classList.add('hidden');
+        overlay.classList.remove('active');
         self.toast('Tutorial complete! Nothing you learned will help.', 'info');
       });
     }

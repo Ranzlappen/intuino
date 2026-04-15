@@ -16,8 +16,7 @@
     this._particleCanvas = canvas;
     this._particleCtx = canvas.getContext('2d');
     this._particles = [];
-
-    var self = this;
+    this._particleLoopRunning = false;
 
     function resize() {
       canvas.width = window.innerWidth;
@@ -25,9 +24,6 @@
     }
     resize();
     window.addEventListener('resize', resize);
-
-    // Kick off the render loop
-    self._particleLoop();
   };
 
   /* ── screenShake ─────────────────────────────────────────────── */
@@ -110,12 +106,18 @@
 
       this._particles.push(p);
     }
+
+    // Start the render loop if it's not already running
+    if (!this._particleLoopRunning) {
+      this._particleLoop();
+    }
   };
 
   /* ── _particleLoop ───────────────────────────────────────────── */
 
   I._particleLoop = function () {
     var self = this;
+    self._particleLoopRunning = true;
 
     requestAnimationFrame(function loop() {
       var particles = self._particles;
@@ -158,12 +160,12 @@
         }
 
         ctx.globalAlpha = 1;
-      } else if (ctx) {
-        // Clear once when all particles are gone
+        requestAnimationFrame(loop);
+      } else {
+        // All particles gone — clear canvas and stop the loop
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+        self._particleLoopRunning = false;
       }
-
-      requestAnimationFrame(loop);
     });
   };
 
