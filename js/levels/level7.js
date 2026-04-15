@@ -112,5 +112,8 @@
       intervals = [];
       document.removeEventListener('visibilitychange', onVisChange);
     }
+
+    // Expose cleanup for navigation lifecycle
+    self.state._l7Cleanup = clearAllIntervals;
   };
 })(IntuiNO);

@@ -64,6 +64,11 @@
       if (!ageTriggered) { ageTriggered = true; this.addChaos(2); this.levelProg(2); this.toast('The age slider moves in mysterious ways.', 'warn'); }
     });
 
+    document.getElementById('l2-terms-link').addEventListener('click', () => {
+      this.addChaos(3);
+      this.toast('The terms changed while you were reading them.', 'warn');
+    });
+
     document.getElementById('l2-agree-no').addEventListener('click', () => {
       this.addChaos(3); this.levelProg(2);
       this.toast('You clicked "No" but actually agreed! Green means no here.', 'info');

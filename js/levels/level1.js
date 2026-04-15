@@ -46,6 +46,15 @@
       });
     });
 
+    var self = this;
+    document.querySelectorAll('.l1-breadcrumb').forEach(function(crumb) {
+      crumb.addEventListener('click', function() {
+        self.addChaos(2);
+        self.levelProg(1);
+        self.toast('Breadcrumb led to a dead end.', 'warn');
+      });
+    });
+
     document.getElementById('l1-complete').addEventListener('click', () => this.completeLevel(1));
   };
 })(IntuiNO);
