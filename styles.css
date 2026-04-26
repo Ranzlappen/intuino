@@ -154,6 +154,12 @@ html:not(.dark) .toggle-slider { background: rgba(0,0,0,.15); }
 
 /* ══════════════ INTRUSIVE BANNER ══════════════ */
 #intrusive-banner {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 75;
+  transform: translateY(100%);
   will-change: transform;
 }
 html:not(.dark) #intrusive-banner .glass-card {
