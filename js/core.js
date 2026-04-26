@@ -469,20 +469,23 @@ const IntuiNO = {
 
   // ─── INTRUSIVE BANNER ───
   initBanner() {
+    if (this.state.bannerInited) return;
+    this.state.bannerInited = true;
+
     var banner = document.getElementById('intrusive-banner');
     if (!banner) return;
-    var bannerVisible = false;
     var hasGsap = typeof gsap !== 'undefined';
     var self = this;
+    self.state.bannerVisible = false;
 
     var showBanner = function() {
-      if (bannerVisible || self.state.currentScreen === 'hero') return;
-      bannerVisible = true;
+      if (self.state.bannerVisible || self.state.currentScreen === 'hero') return;
+      self.state.bannerVisible = true;
       if (hasGsap) { gsap.to(banner, { y:0, duration:0.5, ease:'power2.out' }); }
       else { banner.style.transform = 'translateY(0)'; }
     };
     var hideBanner = function() {
-      bannerVisible = false;
+      self.state.bannerVisible = false;
       if (hasGsap) { gsap.to(banner, { y:'100%', duration:0.4, ease:'power2.in' }); }
       else { banner.style.transform = 'translateY(100%)'; }
     };
@@ -498,12 +501,14 @@ const IntuiNO = {
     });
 
     var scheduleNext = function() {
+      if (self.state.bannerInterval) clearTimeout(self.state.bannerInterval);
       var delay = 15000 + Math.random() * 5000;
       // Faster at higher chaos tiers
       if (self.state.chaosTier >= 3) delay = 8000 + Math.random() * 4000;
       self.state.bannerInterval = setTimeout(function() { showBanner(); scheduleNext(); }, delay);
     };
-    setTimeout(function(){ scheduleNext(); }, 10000);
+    if (self.state.bannerInterval) clearTimeout(self.state.bannerInterval);
+    self.state.bannerInterval = setTimeout(function(){ scheduleNext(); }, 10000);
   },
 
   // ─── GLOBAL LISTENERS ───

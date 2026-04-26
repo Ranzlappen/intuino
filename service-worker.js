@@ -9,8 +9,8 @@ if (workbox) {
   workbox.precaching.precacheAndRoute([
     { url: '/', revision: '3' },
     { url: '/index.html', revision: '3' },
-    { url: '/styles.css', revision: '2' },
-    { url: '/js/core.js', revision: '2' },
+    { url: '/styles.css', revision: '3' },
+    { url: '/js/core.js', revision: '3' },
     { url: '/manifest.json', revision: '1' },
     { url: '/js/chaos-engine.js', revision: '1' },
     { url: '/js/effects.js', revision: '2' },
