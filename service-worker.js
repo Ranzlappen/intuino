@@ -7,11 +7,11 @@ importScripts('https://storage.googleapis.com/workbox-cdn/releases/7.0.0/workbox
 if (workbox) {
   // ─── PRECACHE CRITICAL ASSETS ───
   workbox.precaching.precacheAndRoute([
-    { url: '/', revision: '3' },
-    { url: '/index.html', revision: '3' },
+    { url: '/', revision: '4' },
+    { url: '/index.html', revision: '4' },
     { url: '/styles.css', revision: '3' },
     { url: '/js/core.js', revision: '3' },
-    { url: '/manifest.json', revision: '1' },
+    { url: '/manifest.json', revision: '2' },
     { url: '/js/chaos-engine.js', revision: '1' },
     { url: '/js/effects.js', revision: '2' },
     { url: '/js/audio.js', revision: '1' },

@@ -12,5 +12,5 @@
 3. **Never move** `service-worker.js` out of the project root — it must be registered from `/` for full scope.
 4. **When adding new static assets** (CSS, JS, images), add them to the precache list in `service-worker.js` and bump the `revision` string.
 5. **When changing cached assets**, bump the `revision` values in the precache manifest so the service worker picks up updates.
-6. **Icons**: Place `icon-192x192.png` and `icon-512x512.png` in the `/icons/` directory. These are referenced by the manifest.
+6. **Icons**: The `/icons/` directory holds the shared icon-universe set — `favicon.ico`, `favicon-16x16.png`, `favicon-32x32.png`, `apple-touch-icon.png`, `icon-192.png`, `icon-512.png`, `icon-maskable-192.png`, `icon-maskable-512.png` (generated from the brain-emblem master). `manifest.json` references the 192/512 + maskable PNGs; `index.html` links `favicon.ico`/16/32 + `apple-touch-icon.png`.
 7. **Testing**: After any PWA change, run a Lighthouse PWA audit in Chrome DevTools to verify the score stays at 100.
